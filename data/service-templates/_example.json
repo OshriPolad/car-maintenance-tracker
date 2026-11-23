@@ -1,0 +1,39 @@
+{
+  "make": "Toyota",
+  "model": "Corolla Hybrid",
+  "vehicleType": "car",
+  "yearFrom": 2019,
+  "yearTo": 2024,
+  "engine": {
+    "fuelType": "hybrid",
+    "displacementCc": 1798,
+    "engineCode": "2ZR-FXE",
+    "transmission": "automatic"
+  },
+  "source": {
+    "document": "EXAMPLE ONLY - not real data",
+    "edition": "",
+    "pages": "",
+    "url": ""
+  },
+  "collectedBy": "Example",
+  "verified": false,
+  "services": [
+    {
+      "id": "oil-change",
+      "name": "החלפת שמן מנוע ומסנן שמן",
+      "intervalKm": 15000,
+      "intervalMonths": 12,
+      "firstAtKm": null,
+      "actions": ["ריקון שמן מנוע", "החלפת מסנן שמן", "מילוי שמן חדש", "בדיקת דליפות"],
+      "parts": [
+        { "name": "שמן מנוע", "partNumber": "", "quantity": 4.2, "spec": "0W-20, ליטרים" },
+        { "name": "מסנן שמן", "partNumber": "", "quantity": 1, "spec": "" }
+      ],
+      "costMin": 0,
+      "costMax": 0,
+      "costSource": "",
+      "notes": "EXAMPLE ONLY - the numbers in this file are placeholders, do not copy them"
+    }
+  ]
+}

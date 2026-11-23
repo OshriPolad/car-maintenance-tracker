@@ -1,11 +1,12 @@
 node_modules/
 dist/
 build/
+coverage/
+*.tsbuildinfo
 .env
 .env.*
 !.env.example
 *.log
-coverage/
 .DS_Store
 .vscode/
 .idea/

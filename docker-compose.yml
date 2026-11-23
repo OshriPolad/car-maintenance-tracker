@@ -1,0 +1,37 @@
+# Local development services. Run: docker compose up -d
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: cmt-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cmt}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cmt_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-cmt}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cmt} -d ${POSTGRES_DB:-cmt}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: cmt-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres-data:
+  redis-data:

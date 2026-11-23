@@ -1,0 +1,28 @@
+// Database schema. Owner: Database & Service Engine (Ilay).
+// After changing this file run: pnpm db:migrate
+// Docs: https://www.prisma.io/docs/orm/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Starting point only - Ilay will design the full model
+// (User, Vehicle, ServiceTemplate, ServiceRecord, Reminder).
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(PRIVATE)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum Role {
+  PRIVATE
+  BUSINESS
+}

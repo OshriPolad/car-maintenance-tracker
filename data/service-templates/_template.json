@@ -1,0 +1,38 @@
+{
+  "make": "",
+  "model": "",
+  "vehicleType": "car",
+  "yearFrom": 0,
+  "yearTo": 0,
+  "engine": {
+    "fuelType": "petrol",
+    "displacementCc": 0,
+    "engineCode": "",
+    "transmission": "automatic"
+  },
+  "source": {
+    "document": "",
+    "edition": "",
+    "pages": "",
+    "url": ""
+  },
+  "collectedBy": "",
+  "verified": false,
+  "services": [
+    {
+      "id": "",
+      "name": "",
+      "intervalKm": 0,
+      "intervalMonths": 0,
+      "firstAtKm": null,
+      "actions": [],
+      "parts": [
+        { "name": "", "partNumber": "", "quantity": 1, "spec": "" }
+      ],
+      "costMin": 0,
+      "costMax": 0,
+      "costSource": "",
+      "notes": ""
+    }
+  ]
+}

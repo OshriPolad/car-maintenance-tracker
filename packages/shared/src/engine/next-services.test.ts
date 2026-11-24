@@ -18,7 +18,7 @@ describe("getNextServices", () => {
     const [result] = getNextServices(
       { currentKm: 20000 },
       [oilChange],
-      [{ serviceId: "oil-change", date: "2026-01-01", km: 15000 }],
+      [{ serviceKey: "oil-change", date: "2026-01-01", km: 15000 }],
       { now },
     );
     expect(result.dueAtKm).toBe(30000);
@@ -30,7 +30,7 @@ describe("getNextServices", () => {
     const [result] = getNextServices(
       { currentKm: 31000 },
       [oilChange],
-      [{ serviceId: "oil-change", date: "2026-01-01", km: 15000 }],
+      [{ serviceKey: "oil-change", date: "2026-01-01", km: 15000 }],
       { now },
     );
     expect(result.status).toBe("overdue");
@@ -40,7 +40,7 @@ describe("getNextServices", () => {
     const [result] = getNextServices(
       { currentKm: 16000 },
       [oilChange],
-      [{ serviceId: "oil-change", date: "2025-01-01", km: 15000 }],
+      [{ serviceKey: "oil-change", date: "2025-01-01", km: 15000 }],
       { now },
     );
     expect(result.status).toBe("overdue");
@@ -50,7 +50,7 @@ describe("getNextServices", () => {
     const [result] = getNextServices(
       { currentKm: 29500 },
       [oilChange],
-      [{ serviceId: "oil-change", date: "2026-05-01", km: 15000 }],
+      [{ serviceKey: "oil-change", date: "2026-05-01", km: 15000 }],
       { now },
     );
     expect(result.status).toBe("due-soon");

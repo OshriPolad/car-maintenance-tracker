@@ -27,9 +27,7 @@ export function getNextServices(
 ): NextService[] {
   return template
     .map((item) => {
-      const last = history
-        .filter((r) => (r.serviceKey ?? r.serviceId) === item.id)
-        .sort((a, b) => b.km - a.km)[0];
+      const last = history.filter((r) => r.serviceKey === item.id).sort((a, b) => b.km - a.km)[0];
 
       const baseKm = last ? last.km : 0;
       const dueAtKm =

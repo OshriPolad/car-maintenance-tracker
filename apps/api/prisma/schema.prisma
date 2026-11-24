@@ -84,12 +84,12 @@ model Vehicle {
 }
 
 model ServiceTemplate {
-  id             String    @id @default(uuid())
+  id             String   @id @default(uuid())
   make           String
   model          String
   yearFrom       Int
   yearTo         Int
-  fuelType       FuelType?
+  fuelType       FuelType
   serviceKey     String // e.g. "oil-change" (matches ServiceTemplateItem.id)
   name           String
   intervalKm     Int?
@@ -100,8 +100,8 @@ model ServiceTemplate {
   costMin        Int?
   costMax        Int?
   source         String // Manufacturer manual name + edition/page reference
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@unique([make, model, yearFrom, yearTo, fuelType, serviceKey])
   @@index([make, model])

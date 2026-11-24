@@ -3,8 +3,8 @@
 
 export type UserRole = "PRIVATE" | "BUSINESS";
 
-export type VehicleType = "car" | "motorcycle";
-export type FuelType = "petrol" | "diesel" | "hybrid" | "plugin-hybrid" | "electric";
+export type VehicleType = "CAR" | "MOTORCYCLE";
+export type FuelType = "PETROL" | "DIESEL" | "HYBRID" | "PLUGIN_HYBRID" | "ELECTRIC";
 
 export interface User {
   id: string;
@@ -57,7 +57,7 @@ export interface ServiceTemplate {
   model: string;
   yearFrom: number;
   yearTo: number;
-  fuelType: FuelType | null;
+  fuelType: FuelType;
   serviceKey: string;
   name: string;
   intervalKm: number | null;
@@ -75,8 +75,6 @@ export interface ServiceRecord {
   id?: string;
   vehicleId?: string;
   serviceKey: string;
-  /** @deprecated Use serviceKey; kept temporarily for backward compatibility. */
-  serviceId?: string;
   date: string; // ISO date
   km: number;
   cost?: number | null;

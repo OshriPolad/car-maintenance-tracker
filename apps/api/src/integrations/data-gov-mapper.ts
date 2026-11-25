@@ -30,22 +30,26 @@ export function mapFuelType(rawFuel?: string): FuelType {
     normalized.includes("plug") ||
     normalized.includes("היבריד נטען")
   ) {
-    return "plugin-hybrid";
+    return "PLUGIN_HYBRID";
   }
 
   if (normalized.includes("היבריד") || normalized.includes("hybrid")) {
-    return "hybrid";
+    return "HYBRID";
   }
 
   if (normalized.includes("דיזל") || normalized.includes("diesel")) {
-    return "diesel";
+    return "DIESEL";
   }
 
-  if (normalized.includes("חשמל") || normalized.includes("electric") || normalized.includes("ev")) {
-    return "electric";
+  if (
+    normalized.includes("חשמל") ||
+    normalized.includes("electric") ||
+    normalized.includes("ev")
+  ) {
+    return "ELECTRIC";
   }
 
-  return "petrol";
+  return "PETROL";
 }
 
 export function mapDataGovRecord(

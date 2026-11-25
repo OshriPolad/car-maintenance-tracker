@@ -33,8 +33,8 @@ describe("PlateLookupService", () => {
       make: "טויוטה צרפת",
       model: "YARIS",
       year: 2020,
-      vehicleType: "car",
-      fuelType: "petrol",
+      vehicleType: "CAR",
+      fuelType: "PETROL",
     });
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
@@ -57,8 +57,8 @@ describe("PlateLookupService", () => {
       make: "אס ווי אמ טאיו",
       model: "TL",
       year: 2026,
-      vehicleType: "motorcycle",
-      fuelType: "petrol",
+      vehicleType: "MOTORCYCLE",
+      fuelType: "PETROL",
     });
     expect(global.fetch).toHaveBeenCalledTimes(2);
   });

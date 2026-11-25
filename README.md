@@ -51,6 +51,7 @@ Then open:
 | `pnpm format` | Auto-format all files |
 | `pnpm db:up` / `pnpm db:down` | Start / stop PostgreSQL and Redis |
 | `pnpm db:migrate` | Apply Prisma schema changes to the database |
+| `pnpm db:seed` | Seed the database with test user, vehicles, and sample data |
 | `pnpm db:studio` | Open a visual database browser |
 | `pnpm --filter @cmt/web add <pkg>` | Add a package to one app (`@cmt/api`, `@cmt/shared`) |
 
@@ -62,3 +63,7 @@ Then open:
 
 ## License
 MIT
+
+## Test Login (after `pnpm db:seed`)
+- **Email:** `test@cmt.local`
+- **Password:** `Password123!`

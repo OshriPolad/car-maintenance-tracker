@@ -1,5 +1,10 @@
 import { Controller, Get, Param } from "@nestjs/common";
-import { ApiBadGatewayResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBadGatewayResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 import type { VehicleLookupResult } from "./data-gov-mapper";
 import { PlateLookupService } from "./plate-lookup.service";
 

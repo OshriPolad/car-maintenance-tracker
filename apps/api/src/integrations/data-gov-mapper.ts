@@ -41,11 +41,7 @@ export function mapFuelType(rawFuel?: string): FuelType {
     return "diesel";
   }
 
-  if (
-    normalized.includes("חשמל") ||
-    normalized.includes("electric") ||
-    normalized.includes("ev")
-  ) {
+  if (normalized.includes("חשמל") || normalized.includes("electric") || normalized.includes("ev")) {
     return "electric";
   }
 

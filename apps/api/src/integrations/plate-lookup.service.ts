@@ -64,9 +64,7 @@ export class PlateLookupService {
       });
 
       if (!response.ok) {
-        throw new BadGatewayException(
-          `data.gov.il responded with status ${response.status}`,
-        );
+        throw new BadGatewayException(`data.gov.il responded with status ${response.status}`);
       }
 
       const data = (await response.json()) as DataGovSearchResponse;

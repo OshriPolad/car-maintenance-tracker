@@ -110,3 +110,12 @@ export interface HealthResponse {
   db: "up" | "down";
   timestamp: string;
 }
+
+export interface VehicleLookupResult {
+  plate: string;
+  make: string;
+  model: string;
+  year: number;
+  vehicleType: VehicleType;
+  fuelType: FuelType;
+}

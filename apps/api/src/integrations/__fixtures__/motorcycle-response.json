@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "result": {
+    "records": [
+      {
+        "_id": 58784,
+        "mispar_rechev": 57208104,
+        "tozeret_cd": 1603,
+        "tozeret_eretz_nm": "טאיוואן",
+        "tozeret_nm": "אס ווי אמ טאיו",
+        "degem_nm": "TL",
+        "shnat_yitzur": 2026,
+        "sug_delek_cd": 1,
+        "sug_delek_nm": "בנזין",
+        "mishkal_kolel": 0,
+        "mida_zmig_kidmi": "120/70R15",
+        "mida_zmig_ahori": "160/60R15",
+        "kod_omes_zmig_kidmi": 56,
+        "kod_omes_zmig_ahori": 67,
+        "kod_mehirut_zmig_kidmi": "H",
+        "kod_mehirut_zmig_ahori": "H",
+        "nefach_manoa": 508,
+        "hespek": 45.4,
+        "misgeret": "RFGTLBC01SS000782",
+        "moed_aliya_lakvish": "2026-5",
+        "sug_rechev_EU_cd": "L2",
+        "sug_rechev_cd": 10,
+        "sug_rechev_nm": "אופנוע",
+        "mispar_manoa": "806178",
+        "horaat_rishum": 258073,
+        "baalut": "פרטי",
+        "mkoriut_nm": "",
+        "mispar_mekomot_leyd_nahag": 0,
+        "mispar_mekomot": 1
+      }
+    ],
+    "total": 1
+  }
+}

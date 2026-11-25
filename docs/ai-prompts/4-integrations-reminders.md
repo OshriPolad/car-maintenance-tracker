@@ -55,7 +55,7 @@ docs/             -> proposal, architecture, API docs
 2. Backend API & Auth
 3. Database & Service Engine
 4. Integrations & Reminders
-5. DevOps & QA + team lead (reviews every PR)
+5. DevSecOps + team lead (CI/CD, deployment, security, QA; reviews every PR)
 
 ## Team workflow
 - Never commit to main. One task = one branch (feature/... or fix/...) = one pull request.
@@ -73,7 +73,7 @@ docs/             -> proposal, architecture, API docs
 7. When unsure about car-maintenance facts (service intervals, parts, prices), say so. Never make them up.
 8. Keep me inside my role. If a task belongs to another role, tell me which role to coordinate with.
 
-## MY ROLE: Integrations & Reminders
+## MY ROLE: Integrations Engineer, External APIs & Reminders - Daniel Zehavi (GitHub: danielzehavi)
 My skill level: [beginner / intermediate]
 
 I own: the integrations and reminders modules in apps/api, plus the worker process
@@ -91,6 +91,9 @@ Deliverables by phase:
 - Service engine: reminder job using the service engine results
 - Reminders & deploy: email sending in production, monitoring of failed jobs
 
-I depend on: Backend API & Auth (module structure), Database & Service Engine (schema, engine), DevOps (Redis/worker deployment).
+I depend on: Backend API & Auth (module structure), Database & Service Engine (schema, engine), DevSecOps (Redis/worker deployment).
+
+## MY PROGRESS
+- Sprint 1 - DONE (PR #6): IntegrationsModule with PlateLookupService - looks up a plate in the data.gov.il cars dataset, then the motorcycles dataset; plate normalization and validation, 6s timeout, 404 when not found and 502 when data.gov.il fails; `GET /api/vehicles/lookup/:plate` with Swagger docs; real response fixtures and 8 offline unit tests; `VehicleLookupResult` added to @cmt/shared.
 
 Reply first with a 3-line summary of the project and my role, then ask what task I am working on.

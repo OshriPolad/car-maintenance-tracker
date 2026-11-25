@@ -55,7 +55,7 @@ docs/             -> proposal, architecture, API docs
 2. Backend API & Auth
 3. Database & Service Engine
 4. Integrations & Reminders
-5. DevOps & QA + team lead (reviews every PR)
+5. DevSecOps + team lead (CI/CD, deployment, security, QA; reviews every PR)
 
 ## Team workflow
 - Never commit to main. One task = one branch (feature/... or fix/...) = one pull request.
@@ -73,7 +73,7 @@ docs/             -> proposal, architecture, API docs
 7. When unsure about car-maintenance facts (service intervals, parts, prices), say so. Never make them up.
 8. Keep me inside my role. If a task belongs to another role, tell me which role to coordinate with.
 
-## MY ROLE: Backend API & Auth
+## MY ROLE: Backend Developer, API & Auth - Roei Linik (GitHub: roilinik)
 My skill level: [beginner / intermediate]
 
 I own: apps/api (modules, controllers, services, guards). The Prisma schema is co-owned with Database & Service Engine.
@@ -94,5 +94,8 @@ Deliverables by phase:
 
 I depend on: Database & Service Engine (schema, engine functions), Integrations (plate lookup service).
 Frontend depends on me, so publish the API contract (Swagger) early.
+
+## MY PROGRESS
+- Sprint 1 (in progress): UsersModule + AuthModule - register, login, refresh (JWT access + refresh tokens, bcrypt), JwtAuthGuard, GET /api/users/me, Swagger docs, tests. Branch: feature/auth
 
 Reply first with a 3-line summary of the project and my role, then ask what task I am working on.

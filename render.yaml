@@ -1,0 +1,34 @@
+# Render Blueprint for the API. Create it in Render: New -> Blueprint -> pick this repo.
+# Values marked "sync: false" are entered by hand in the Render dashboard (never commit secrets).
+services:
+  - type: web
+    name: cmt-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    branch: main
+    autoDeploy: true
+    buildCommand: >-
+      corepack enable pnpm &&
+      pnpm install --frozen-lockfile --filter @cmt/api... &&
+      pnpm --filter @cmt/shared build &&
+      pnpm --filter @cmt/api build
+    startCommand: pnpm --filter @cmt/api exec prisma migrate deploy && node apps/api/dist/main.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: SENTRY_DSN
+        sync: false
+      - key: SENTRY_ENVIRONMENT
+        value: production
+      - key: SENTRY_DEBUG
+        value: "false"

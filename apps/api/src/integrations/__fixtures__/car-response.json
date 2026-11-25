@@ -1,0 +1,34 @@
+{
+    "success": true,
+    "result": {
+        "records": [
+            {
+                "_id": 3527329,
+                "mispar_rechev": 22012602,
+                "tozeret_cd": 672,
+                "sug_degem": "P",
+                "tozeret_nm": "טויוטה צרפת",
+                "degem_cd": 79,
+                "degem_nm": "NSP131L-CHXNBW",
+                "ramat_gimur": "STYLE",
+                "ramat_eivzur_betihuty": 1,
+                "kvutzat_zihum": 11,
+                "shnat_yitzur": 2020,
+                "degem_manoa": "2NR",
+                "mivchan_acharon_dt": "2026-06-10",
+                "tokef_dt": "2027-06-27",
+                "baalut": "פרטי",
+                "misgeret": "VNKKG3D390A190487",
+                "tzeva_cd": 80,
+                "tzeva_rechev": "שנהב לבן",
+                "zmig_kidmi": "175/65R15",
+                "zmig_ahori": "175/65R15",
+                "sug_delek_nm": "בנזין",
+                "horaat_rishum": 200375,
+                "moed_aliya_lakvish": "2020-6",
+                "kinuy_mishari": "YARIS"
+            }
+        ],
+        "total": 1
+    }
+}

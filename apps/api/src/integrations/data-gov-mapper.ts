@@ -1,4 +1,6 @@
-import type { FuelType, VehicleType } from "@cmt/shared";
+import type { FuelType, VehicleLookupResult, VehicleType } from "@cmt/shared";
+
+export type { VehicleLookupResult };
 
 export interface DataGovVehicleRecord {
   mispar_rechev?: number | string;
@@ -7,15 +9,6 @@ export interface DataGovVehicleRecord {
   degem_nm?: string;
   shnat_yitzur?: number | string;
   sug_delek_nm?: string;
-}
-
-export interface VehicleLookupResult {
-  plate: string;
-  make: string;
-  model: string;
-  year: number;
-  vehicleType: VehicleType;
-  fuelType: FuelType;
 }
 
 export function normalizePlate(rawPlate: string): string {
@@ -41,11 +34,7 @@ export function mapFuelType(rawFuel?: string): FuelType {
     return "DIESEL";
   }
 
-  if (
-    normalized.includes("חשמל") ||
-    normalized.includes("electric") ||
-    normalized.includes("ev")
-  ) {
+  if (normalized.includes("חשמל") || normalized.includes("electric")) {
     return "ELECTRIC";
   }
 

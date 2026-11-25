@@ -4,12 +4,8 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import {
-  type DataGovVehicleRecord,
-  type VehicleLookupResult,
-  mapDataGovRecord,
-  normalizePlate,
-} from "./data-gov-mapper";
+import type { VehicleLookupResult } from "@cmt/shared";
+import { type DataGovVehicleRecord, mapDataGovRecord, normalizePlate } from "./data-gov-mapper";
 
 const DATA_GOV_ENDPOINT = "https://data.gov.il/api/3/action/datastore_search";
 const CARS_RESOURCE_ID = "053cea08-09bc-40ec-8f7a-156f0677aff3";
@@ -34,12 +30,12 @@ export class PlateLookupService {
 
     const carRecord = await this.queryDataset(CARS_RESOURCE_ID, plate);
     if (carRecord) {
-      return mapDataGovRecord(carRecord, "car", plate);
+      return mapDataGovRecord(carRecord, "CAR", plate);
     }
 
     const motorcycleRecord = await this.queryDataset(MOTORCYCLES_RESOURCE_ID, plate);
     if (motorcycleRecord) {
-      return mapDataGovRecord(motorcycleRecord, "motorcycle", plate);
+      return mapDataGovRecord(motorcycleRecord, "MOTORCYCLE", plate);
     }
 
     throw new NotFoundException(`Vehicle with plate ${plate} was not found`);

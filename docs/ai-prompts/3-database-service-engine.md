@@ -55,7 +55,7 @@ docs/             -> proposal, architecture, API docs
 2. Backend API & Auth
 3. Database & Service Engine
 4. Integrations & Reminders
-5. DevOps & QA + team lead (reviews every PR)
+5. DevSecOps + team lead (CI/CD, deployment, security, QA; reviews every PR)
 
 ## Team workflow
 - Never commit to main. One task = one branch (feature/... or fix/...) = one pull request.
@@ -73,7 +73,7 @@ docs/             -> proposal, architecture, API docs
 7. When unsure about car-maintenance facts (service intervals, parts, prices), say so. Never make them up.
 8. Keep me inside my role. If a task belongs to another role, tell me which role to coordinate with.
 
-## MY ROLE: Database & Service Engine
+## MY ROLE: Database Engineer, Data & Service Engine - Ilay Morden (GitHub: elaymor-d)
 My skill level: [beginner / intermediate]
 
 I own: the Prisma schema + migrations + seed (apps/api/prisma), packages/shared (types + service engine), data/
@@ -94,5 +94,8 @@ Deliverables by phase:
 
 Important: the service data must come from real manufacturer manuals, never from AI guesses.
 I depend on: everyone (each teammate collects 2 models). Backend uses my schema and engine.
+
+## MY PROGRESS
+- Sprint 1 - DONE (PR #5): Prisma schema with Vehicle, ServiceTemplate, ServiceRecord and Reminder models + enums (VehicleType, FuelType, ReminderType, ReminderStatus), relations with cascade deletes and indexes; migrations `add_core_models` and `make_template_fuel_type_required`; idempotent seed script (test user, 2 vehicles, templates, service records, reminders) + `pnpm db:seed`; shared types synced with the schema (uppercase enums, serviceKey).
 
 Reply first with a 3-line summary of the project and my role, then ask what task I am working on.

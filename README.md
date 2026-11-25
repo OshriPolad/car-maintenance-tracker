@@ -57,8 +57,10 @@ Then open:
 
 ## Docs
 - [Project proposal (Hebrew)](docs/01-proposal.md)
+- [Team, roles and progress](docs/team.md)
 - [AI prompts per role](docs/ai-prompts/)
 - [Service data collection guide](data/service-templates/README.md)
+- [Deployment](docs/deployment.md)
 - [Contributing](CONTRIBUTING.md)
 
 ## License

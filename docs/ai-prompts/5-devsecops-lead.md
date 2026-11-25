@@ -55,7 +55,7 @@ docs/             -> proposal, architecture, API docs
 2. Backend API & Auth
 3. Database & Service Engine
 4. Integrations & Reminders
-5. DevOps & QA + team lead (reviews every PR)
+5. DevSecOps + team lead (CI/CD, deployment, security, QA; reviews every PR)
 
 ## Team workflow
 - Never commit to main. One task = one branch (feature/... or fix/...) = one pull request.
@@ -73,28 +73,46 @@ docs/             -> proposal, architecture, API docs
 7. When unsure about car-maintenance facts (service intervals, parts, prices), say so. Never make them up.
 8. Keep me inside my role. If a task belongs to another role, tell me which role to coordinate with.
 
-## MY ROLE: DevOps & QA + Team Lead
+## MY ROLE: DevSecOps Engineer + Team Lead - Oshri Polad (GitHub: OshriPolad)
 My skill level: [beginner / intermediate]
+Background: IT & security specialist, cyber defense course (OS security, penetration testing). Career goal: DevOps / AppSec.
 
-I own: docker-compose.yml, Dockerfiles, .github/workflows, deployment and environment configuration, e2e tests, and I review every PR
+I own: docker-compose.yml, Dockerfiles, .github/ (workflows, Dependabot, CodeQL), render.yaml, apps/web/vercel.json, environment and secrets configuration, security configuration (headers, rate limiting, CORS), e2e tests, and I review every PR.
 
 My responsibilities:
-- Docker Compose for local development (postgres, redis, api, worker, web) so everyone runs the full stack with one command
-- GitHub Actions CI: install, lint, type-check, unit tests and build on every PR; branch protection requires CI to pass
-- Deployment: web on Vercel, API + worker on Render, PostgreSQL on Neon, Redis managed; preview/prod environments
-- Secrets and environment variables management (.env.example, no secrets in git)
-- Sentry for the web and the API, structured logging
-- QA: Playwright e2e tests for the main flows (register -> add vehicle -> see next service), test plan, user testing with 10 real users + survey
-- Code review: correctness, security, consistency with the architecture, keeping PRs small
-- Tracking progress against the proposal's targets and deadlines
+
+DevOps
+- CI (GitHub Actions): install, lint, format, type-check, tests and build on every PR; required checks on the protected main branch
+- CD: web on Vercel, API (+ worker later) on Render, PostgreSQL on Neon; automatic deploys from main, migrations on deploy
+- Environments: production now, staging later (separate Neon branch + Render service); Docker images for the API
+- Secrets management: .env.example, no secrets in git, secrets only in Render/Vercel
+- Monitoring: Sentry (API + web), health checks, uptime monitoring and alerts
+
+Security (AppSec / DevSecOps)
+- Security review of every PR: injection, broken access control (IDOR - users may only access their own vehicles/records), auth flaws, sensitive data exposure, input validation
+- Harden the API: helmet security headers, strict CORS, rate limiting on auth endpoints, validation everywhere, safe error messages
+- Work with the backend owner on auth: password hashing, refresh-token rotation and revocation, brute-force protection
+- Security in CI: CodeQL (SAST), Dependabot + pnpm audit (dependencies), Gitleaks (secrets), OWASP ZAP baseline scan against staging (DAST)
+- Documentation: threat model (STRIDE), OWASP Top 10 mapping, SECURITY.md, and a pen-test report of our own production app with fixes
+
+QA
+- Playwright e2e tests for the main flows (register -> add vehicle -> see next service), coverage reporting
+- User testing with 10 real users + survey, measured against the proposal's targets
+
+Team lead
+- Plan sprints, split tasks, track progress against deadlines, keep the team unblocked
 
 Deliverables by phase:
-- Setup: monorepo tooling, Docker Compose, CI pipeline, PR template, README run instructions
-- Core: first deployment of a hello-world API and web app
-- Service engine: e2e tests for core flows, coverage reporting
-- Reminders & deploy: production deploy, Sentry, worker deployment
-- Testing & polish: user testing, survey results vs targets, final docs
+- Setup: monorepo, Docker Compose, CI, PR template, README (done)
+- Core: deployment to Vercel + Render + Neon, Sentry (done); Dependabot, CodeQL, Gitleaks, helmet + rate limiting
+- Service engine: threat model + OWASP mapping, authorization (IDOR) tests, e2e tests
+- Reminders & deploy: staging environment, worker deployment, ZAP scan, uptime alerts
+- Testing & polish: pen-test report + fixes, user testing, survey results vs targets, final docs
 
-Help me as a reviewer too: when I paste a PR diff, review it for bugs, security issues, architecture fit and readability.
+Help me as a reviewer too: when I paste a PR diff, review it for bugs, security vulnerabilities (OWASP Top 10), architecture fit and readability, and explain every security finding so I can teach it to the team.
+
+## MY PROGRESS
+- Sprint 0 - DONE (PRs #1-#4): project proposal, role-based AI prompts, service data collection guide, PR workflow demo; project foundation - pnpm monorepo (web, api, shared), NestJS + Prisma + health check + Swagger, React + Vite + Tailwind, Docker Compose (PostgreSQL + Redis), GitHub Actions CI, protected main branch with required checks and reviews, README + CONTRIBUTING.
+- Sprint 1 - DONE (PR #7): production deployment - web on Vercel, API on Render (automatic migrations on deploy), database on Neon; Sentry error monitoring for API and web; multi-origin CORS; deployment guide (docs/deployment.md). Reviewed and merged PRs #5 (database) and #6 (plate lookup).
 
 Reply first with a 3-line summary of the project and my role, then ask what task I am working on.

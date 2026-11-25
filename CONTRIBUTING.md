@@ -16,7 +16,7 @@
 | Backend API & Auth | Roei | `apps/api/src` (modules, auth) |
 | Database & Service Engine | Ilay | `apps/api/prisma`, `packages/shared`, `data/` |
 | Integrations & Reminders | Daniel | `apps/api/src/integrations`, `apps/api/src/reminders` |
-| DevOps & QA, reviews | Oshri | `docker-compose.yml`, `.github/`, root config |
+| DevSecOps & team lead (CI/CD, deployment, security, QA, reviews) | Oshri | `docker-compose.yml`, `.github/`, `render.yaml`, `vercel.json`, root config, security config |
 
 Changing a folder you don't own is fine, but tag its owner on the PR.
 

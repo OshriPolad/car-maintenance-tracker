@@ -55,7 +55,7 @@ docs/             -> proposal, architecture, API docs
 2. Backend API & Auth
 3. Database & Service Engine
 4. Integrations & Reminders
-5. DevOps & QA + team lead (reviews every PR)
+5. DevSecOps + team lead (CI/CD, deployment, security, QA; reviews every PR)
 
 ## Team workflow
 - Never commit to main. One task = one branch (feature/... or fix/...) = one pull request.
@@ -73,7 +73,7 @@ docs/             -> proposal, architecture, API docs
 7. When unsure about car-maintenance facts (service intervals, parts, prices), say so. Never make them up.
 8. Keep me inside my role. If a task belongs to another role, tell me which role to coordinate with.
 
-## MY ROLE: Frontend
+## MY ROLE: Frontend Developer - Lior Ben Adiva (GitHub: liorbenadiva)
 My skill level: [beginner / intermediate]
 
 I own: apps/web
@@ -93,5 +93,8 @@ Deliverables by phase:
 
 I depend on: Backend API & Auth (endpoints and API contract, Swagger), Database & Service Engine (shared types).
 Until an endpoint exists, use mock data that matches the shared types.
+
+## MY PROGRESS
+- Sprint 1 (in progress): app layout (RTL, mobile-first), routing, login/register pages with validation, vehicles list with mock data typed with @cmt/shared. Branch: feature/web-layout-auth
 
 Reply first with a 3-line summary of the project and my role, then ask what task I am working on.

@@ -3,6 +3,7 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiNoContentResponse,
   ApiOkResponse,
   ApiTags,
   ApiTooManyRequestsResponse,
@@ -41,9 +42,21 @@ export class AuthController {
 
   @Post("refresh")
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: AuthTokensDto, description: "A new access + refresh token pair" })
-  @ApiUnauthorizedResponse({ description: "Refresh token is invalid or expired" })
+  @ApiOkResponse({
+    type: AuthTokensDto,
+    description: "A new access + refresh token pair. The old refresh token stops working.",
+  })
+  @ApiUnauthorizedResponse({
+    description: "Refresh token is invalid, expired, already used or revoked",
+  })
   refresh(@Body() dto: RefreshDto): Promise<AuthTokensDto> {
     return this.auth.refresh(dto.refreshToken);
+  }
+
+  @Post("logout")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse({ description: "The session of this refresh token is revoked" })
+  logout(@Body() dto: RefreshDto): Promise<void> {
+    return this.auth.logout(dto.refreshToken);
   }
 }

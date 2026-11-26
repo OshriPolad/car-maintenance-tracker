@@ -19,10 +19,16 @@ export interface LoginRequest {
   password: string;
 }
 
-/** POST /api/auth/refresh - 200 AuthTokens, 401 invalid or expired refresh token. */
+/**
+ * POST /api/auth/refresh - 200 AuthTokens, 401 invalid, expired, already used or revoked token.
+ * Rotation: each refresh token works ONCE - always replace the stored one with the new pair.
+ */
 export interface RefreshRequest {
   refreshToken: string;
 }
+
+/** POST /api/auth/logout - always 204. Revokes the session of this refresh token. */
+export type LogoutRequest = RefreshRequest;
 
 /**
  * Returned by register, login and refresh.

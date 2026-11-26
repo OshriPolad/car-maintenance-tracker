@@ -6,6 +6,7 @@ import { UsersModule } from "../users/users.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./jwt.strategy";
+import { RefreshTokensService } from "./refresh-tokens.service";
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { JwtStrategy } from "./jwt.strategy";
   ],
   controllers: [AuthController],
   // JwtStrategy registers the "jwt" strategy that JwtAuthGuard uses in any module.
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, RefreshTokensService, JwtStrategy],
 })
 export class AuthModule {}

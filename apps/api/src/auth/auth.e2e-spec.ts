@@ -4,7 +4,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { Test } from "@nestjs/testing";
 import { ThrottlerModule } from "@nestjs/throttler";
-import { Prisma, type User } from "@prisma/client";
+import { Prisma, type RefreshToken, type User } from "@prisma/client";
 import request from "supertest";
 import { PrismaService } from "../prisma/prisma.service";
 import { UsersController } from "../users/users.controller";
@@ -12,6 +12,7 @@ import { UsersService } from "../users/users.service";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./jwt.strategy";
+import { RefreshTokensService } from "./refresh-tokens.service";
 
 // Test-only secrets - never real values.
 const TEST_SECRETS: Record<string, string> = {
@@ -19,11 +20,45 @@ const TEST_SECRETS: Record<string, string> = {
   JWT_REFRESH_SECRET: "test-refresh-secret",
 };
 
-/** A tiny in-memory stand-in for the users table, so these tests need no database. */
+/** A tiny in-memory stand-in for the users and refresh token tables, so these tests need no database. */
 function createFakePrisma() {
   const users = new Map<string, User>();
+  const tokens = new Map<string, RefreshToken>();
   let nextId = 1;
+  let nextTokenId = 1;
+  const matches = (t: RefreshToken, where: Partial<RefreshToken>) =>
+    Object.entries(where).every(([key, value]) => t[key as keyof RefreshToken] === value);
   return {
+    refreshToken: {
+      create: ({ data }: { data: Pick<RefreshToken, "userId" | "familyId" | "expiresAt"> }) => {
+        const token: RefreshToken = {
+          id: `token-${nextTokenId++}`,
+          revokedAt: null,
+          createdAt: new Date(),
+          ...data,
+        };
+        tokens.set(token.id, token);
+        return Promise.resolve(token);
+      },
+      findUnique: ({ where }: { where: { id: string } }) =>
+        Promise.resolve(tokens.get(where.id) ?? null),
+      updateMany: ({
+        where,
+        data,
+      }: {
+        where: Partial<RefreshToken>;
+        data: Partial<RefreshToken>;
+      }) => {
+        let count = 0;
+        for (const token of tokens.values()) {
+          if (matches(token, where)) {
+            Object.assign(token, data);
+            count++;
+          }
+        }
+        return Promise.resolve({ count });
+      },
+    },
     user: {
       findUnique: ({ where }: { where: { id?: string; email?: string } }) =>
         Promise.resolve(
@@ -69,6 +104,7 @@ async function createApp(rateLimit: number): Promise<INestApplication> {
     providers: [
       AuthService,
       UsersService,
+      RefreshTokensService,
       JwtStrategy,
       { provide: PrismaService, useValue: createFakePrisma() },
       { provide: ConfigService, useValue: { getOrThrow: (key: string) => TEST_SECRETS[key] } },
@@ -171,6 +207,62 @@ describe("Auth API (e2e, fake database)", () => {
       .post("/auth/refresh")
       .send({ refreshToken: loggedIn.body.accessToken })
       .expect(401);
+  });
+});
+
+describe("Refresh token rotation and logout (e2e)", () => {
+  let app: INestApplication;
+  const credentials = { email: "rotation@example.com", password: "a-long-password" };
+
+  beforeAll(async () => {
+    app = await createApp(100);
+    await request(app.getHttpServer()).post("/auth/register").send(credentials).expect(201);
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  const login = async () =>
+    (await request(app.getHttpServer()).post("/auth/login").send(credentials).expect(200)).body;
+  const refresh = (refreshToken: string) =>
+    request(app.getHttpServer()).post("/auth/refresh").send({ refreshToken });
+
+  it("a refresh token works only once", async () => {
+    const { refreshToken } = await login();
+
+    await refresh(refreshToken).expect(200);
+    await refresh(refreshToken).expect(401);
+  });
+
+  it("reusing an old token revokes the whole session (stolen token detection)", async () => {
+    const first = await login();
+    const second = (await refresh(first.refreshToken).expect(200)).body;
+
+    // An attacker replays the first (already used) token...
+    await refresh(first.refreshToken).expect(401);
+    // ...so the legitimate newest token stops working too.
+    await refresh(second.refreshToken).expect(401);
+  });
+
+  it("other sessions are not affected by a revoked session", async () => {
+    const sessionA = await login();
+    const sessionB = await login();
+
+    await refresh(sessionA.refreshToken).expect(200);
+    await refresh(sessionA.refreshToken).expect(401); // reuse -> session A revoked
+
+    await refresh(sessionB.refreshToken).expect(200);
+  });
+
+  it("logout revokes the session, and is always 204", async () => {
+    const { refreshToken } = await login();
+
+    await request(app.getHttpServer()).post("/auth/logout").send({ refreshToken }).expect(204);
+    await refresh(refreshToken).expect(401);
+
+    // Logging out again (or with an invalid token) does not reveal anything.
+    await request(app.getHttpServer()).post("/auth/logout").send({ refreshToken }).expect(204);
   });
 });
 

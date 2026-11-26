@@ -7,6 +7,10 @@ import { AppModule } from "./app.module";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Render (and most hosts) put a proxy in front of the app. Trust exactly one hop so req.ip is the
+  // real client IP - otherwise the auth rate limit would count every user as the same IP.
+  app.getHttpAdapter().getInstance().set("trust proxy", 1);
+
   app.setGlobalPrefix("api");
   // CORS_ORIGIN can hold several comma-separated origins (e.g. production + preview URLs).
   const corsOrigins = (process.env.CORS_ORIGIN ?? "http://localhost:5173")

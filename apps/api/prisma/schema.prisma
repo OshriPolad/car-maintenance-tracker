@@ -58,7 +58,8 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  vehicles Vehicle[]
+  vehicles      Vehicle[]
+  refreshTokens RefreshToken[]
 }
 
 model Vehicle {
@@ -136,4 +137,21 @@ model Reminder {
 
   @@index([status, dueDate])
   @@index([vehicleId])
+}
+
+// One row per issued refresh token (DevSecOps: rotation + revocation).
+// The row id is the JWT "jti" claim. Each refresh marks the old row as revoked and creates a new one
+// in the same family. Using an already-revoked token means it was stolen -> the whole family is revoked.
+model RefreshToken {
+  id        String    @id @default(uuid())
+  userId    String
+  familyId  String // All tokens that came from one login share a family
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([familyId])
 }
